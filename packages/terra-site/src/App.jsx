@@ -76,6 +76,7 @@ class App extends React.Component {
                 <List.Item content={<Link to="/site/progress-bar">Progress Bar</Link>} />
                 <List.Item content={<Link to="/site/responsive-element">Responsive Element</Link>} />
                 <List.Item content={<Link to="/site/search-field">Search Field</Link>} />
+                <List.Item content={<Link to="/site/signature">Signature</Link>} />
                 <List.Item content={<Link to="/site/slide-group">Slide Group</Link>} />
                 <List.Item content={<Link to="/site/slide-panel">Slide Panel</Link>} />
                 <List.Item content={<Link to="/site/status">Status</Link>} />
