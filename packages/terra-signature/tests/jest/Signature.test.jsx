@@ -13,7 +13,7 @@ describe('Signature', () => {
   // Prop Tests
   it('should use the default value when no value is given', () => {
     const wrapper = shallow(defaultRender);
-    expect(wrapper.find('.terra-Signature').text()).toEqual('defualt');
+    expect(wrapper.find('.terra-Signature').text()).toEqual('default');
   });
 
   // Structure Tests

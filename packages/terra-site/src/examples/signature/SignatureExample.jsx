@@ -19,7 +19,7 @@ class SignatureExample extends React.Component {
 
     return (      
       <div style={{ height: '100px', width: '100%', border: '1px solid black'}} >
-        <Signature ref={instance => { this.signature = instance; }} lineWidth={4} lineSegments={lineSegments} onChange={this.handleChange.bind(this)}/>
+        <Signature ref={instance => { this.signature = instance; }} lineWidth={6} lineColor={'#00008B'} lineSegments={lineSegments} onChange={this.handleChange.bind(this)}/>
         <button onClick={() => {this.signature.clearSignature()}}>Clear</button>
       </div>
     );
