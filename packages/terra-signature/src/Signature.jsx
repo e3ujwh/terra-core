@@ -142,10 +142,8 @@ class Signature extends React.Component {
 
     context.lineJoin = 'round';
 
-    const { lineWidth } = Object.assign({}, defaultProps, this.props);
+    const { lineWidth, lineColor } = Object.assign({}, defaultProps, this.props.lineWidth, this.props.lineColor);
     context.lineWidth = lineWidth;
-
-    const { lineColor } = Object.assign({}, defaultProps, this.props);
     context.strokeStyle = lineColor;
 
     // clear canvas
