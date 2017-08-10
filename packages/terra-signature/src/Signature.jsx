@@ -11,7 +11,7 @@ const propTypes = {
   lineWidth: PropTypes.number,
 
   /**
-  * Sets the line width.
+  * Sets the line color.
   */
   lineColor: PropTypes.string,
 
