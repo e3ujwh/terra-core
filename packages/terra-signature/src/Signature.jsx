@@ -13,7 +13,7 @@ const LineWidths = {
 
 const propTypes = {
   /**
-   * The line width to use when drawing the signature on the canvas. 
+   * The line width to use when drawing the signature on the canvas.
    * One of LineWidths.EXTRAFINE, LineWidths.FINE, LineWidths.MEDIUM, LineWidths.HEAVY.
    */
   lineWidth: PropTypes.oneOf([LineWidths.EXTRAFINE, LineWidths.FINE, LineWidths.MEDIUM, LineWidths.HEAVY]),
@@ -77,12 +77,12 @@ class Signature extends React.Component {
     window.addEventListener('resize', () => this.updateDimensions());
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.lineSegments != prevProps.lineSegments) {
-      const newState = Object.assign({}, this.state, { lineSegments: this.props.lineSegments });
-      this.drawSignature(this.props.lineSegments);
+  componentWillReceiveProps(nextProps) {
+    if (this.props.lineSegments !== nextProps.lineSegments) {
+      const newState = Object.assign({}, this.state, { lineSegments: nextProps.lineSegments });
+      this.drawSignature(nextProps.lineSegments);
       this.setState(newState);
-     }
+    }
   }
 
   componentWillUnmount() {
@@ -188,7 +188,7 @@ class Signature extends React.Component {
 
   render() {
     return (
-      <canvas className='terra-Signature' ref={(node) => { this.node = node; }} />
+      <canvas className="terra-Signature" ref={(node) => { this.node = node; }} />
     );
   }
 }
