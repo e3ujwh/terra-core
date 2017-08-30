@@ -3,17 +3,20 @@ import PropTypes from 'prop-types';
 import 'terra-base/lib/baseStyles';
 import './Signature.scss';
 
+const LineWidths = {
+  EXTRAFINE: 1,
+  FINE: 2,
+  MEDIUM: 4,
+  HEAVY: 6,
+};
+
+
 const propTypes = {
-
   /**
-  * Sets the line width.
-  */
-  lineWidth: PropTypes.number,
-
-  /**
-  * Sets the line color.
-  */
-  lineColor: PropTypes.string,
+   * The line width to use when drawing the signature on the canvas. 
+   * One of LineWidths.EXTRAFINE, LineWidths.FINE, LineWidths.MEDIUM, LineWidths.HEAVY.
+   */
+  lineWidth: PropTypes.oneOf([LineWidths.EXTRAFINE, LineWidths.FINE, LineWidths.MEDIUM, LineWidths.HEAVY]),
 
   /**
   * Line segments that define signature.
@@ -29,8 +32,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-  lineWidth: 1,
-  lineColor: '#000000',
+  lineWidth: LineWidths.FINE,
   lineSegments: undefined,
   onChange: undefined,
 };
@@ -62,7 +64,10 @@ class Signature extends React.Component {
     const context = this.node.getContext('2d');
 
     context.lineWidth = this.props.lineWidth;
-    context.strokeStyle = this.props.lineColor;
+
+    const style = window.getComputedStyle(this.node);
+    const color = style.getPropertyValue('color');
+    context.strokeStyle = color;
 
     if (this.props.lineSegments) {
       this.state.lineSegments = this.props.lineSegments;
@@ -70,6 +75,14 @@ class Signature extends React.Component {
     }
 
     window.addEventListener('resize', () => this.updateDimensions());
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.lineSegments != prevProps.lineSegments) {
+      const newState = Object.assign({}, this.state, { lineSegments: this.props.lineSegments });
+      this.drawSignature(this.props.lineSegments);
+      this.setState(newState);
+     }
   }
 
   componentWillUnmount() {
@@ -140,7 +153,6 @@ class Signature extends React.Component {
 
     context.lineJoin = 'round';
     context.lineWidth = this.props.lineWidth;
-    context.strokeStyle = this.props.lineColor;
 
     // clear canvas
     context.clearRect(0, 0, canvas.getBoundingClientRect().width, canvas.getBoundingClientRect().height);
@@ -176,13 +188,13 @@ class Signature extends React.Component {
 
   render() {
     return (
-      <canvas className="terra-Signature" ref={(node) => { this.node = node; }} />
+      <canvas className='terra-Signature' ref={(node) => { this.node = node; }} />
     );
   }
-
 }
 
 Signature.propTypes = propTypes;
 Signature.defaultProps = defaultProps;
+Signature.Width = LineWidths;
 
 export default Signature;
